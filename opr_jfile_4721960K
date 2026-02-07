@@ -3,50 +3,48 @@ pipeline {
       stages {
           stage('stg1-4721960K') {
           steps {
-            echo 'Continue from Previous Phase'
-            echo 'Stage 1 completed'
-            }
+            echo 'Continue from previous phase: Ready to deploy next environment.'
           }
-         
+          }
           stage('stg2-4721960K') {
-            steps {
-                script {
-                v2 = input ( 
-                       message: 'Action',
-                       parameters: [choice(name:'',choices: ['Deploy to Production Environment', 'Rollback'])]
-                            )
-                       }
-	        }
-	      }          
-
+          steps {
+            input('Do you want to update to UAT container?')
+          }
+          }
           stage('stg3-4721960K') {
-             steps {
-                script {
-                   if (v2 == 'Rollback') {
-                   echo 'Rollback Completed'
-                   } else if (v2 == 'Deploy to Production Environment') {
-  	            echo "Production container updated"
-                   }	      
-                   }
-	         }
-	      }
-	  
-	      stage('stg4-4721960K') {
-             steps {
-	            echo 'Deploy to production environment successfully'
-		     }
-	      }
-
-	      stage('stg5-4721960K') {
-             steps {
-	            echo 'Deploy to production environment successfully'
-		     }
-	      }
-		  
-		  stage('stg6-4721960K') {
-             steps {
-	            echo 'Deploy to production environment successfully'
-		     }
-	      }
+          steps {
+                 sh '''#!/bin/bash
+                 puppet resource file /tmp/clone ensure=absent force=true;
+                 puppet resource file /tmp/clone ensure=directory;
+	   cd /tmp/clone;
+	   git clone https://<your token>@github.com/<your repo>/devops_repo.git;
+                 targets=testsvr_4721960k.localdomain;
+                 locate_script='/tmp/clone/devops_repo/script_to_run';
+                 bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
+                 '''
+                 echo "UAT container updated"
+          }
+          }
+          stage('stg4-4721960K') {
+          steps {
+            input('Do you want to deploy to Production container?')
+                
+          }
+          }
+          stage('stg5-4721960K') {
+          steps {
+                 sh '''#!/bin/bash
+                 targets=appsvr_4721960k.localdomain;
+                 locate_script='/tmp/clone/devops_repo/script_to_run';
+                 bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
+                 '''
+                 echo "Production container updated"
+          }
+          }
+          stage('stg6-4721960K') {
+          steps {
+            echo 'Completed updating to Production Container'
+          }
+          }
       }
 }
