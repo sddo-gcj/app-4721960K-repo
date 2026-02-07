@@ -22,7 +22,7 @@ pipeline {
                  locate_script='/tmp/clone/app-4721960K_repo/script_to_run';
                  bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
                  '''
-                 echo "UAT container updated"
+                 echo "stg3_4721960k:testsvr is backup and updated"
           }
           }
           stage('stg4-4721960K') {
@@ -38,7 +38,7 @@ pipeline {
                  locate_script='/tmp/clone/app-4721960K_repo/script_to_run';
                  bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
                  '''
-                 echo "Production container updated"
+                 echo "stg5_4721960k:appsvr is backup and updated"
           }
           }
           stage('stg6-4721960K') {
