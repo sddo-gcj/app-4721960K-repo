@@ -36,9 +36,14 @@ pipeline {
           stage('stg3-4721960K') {
           steps {            
              script {
-                 def imgName = "testsvr_image"
-                 echo ${imgName}
+                  def image_Name = 'testsvr_image'  
+                  def exists = sh(script: "docker image inspect ${image_Name}> /dev/null",returnStatus: true)
 
+                  if (exists == 0) {
+                      sh """
+                         docker rmi -f ${image_Name}
+                       """
+                  } 
                  sh '''#!/bin/bash
 
                  echo "stg3_4721960k:testsvr is backup and updated";
