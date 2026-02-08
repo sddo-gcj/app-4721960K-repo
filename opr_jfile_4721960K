@@ -44,6 +44,8 @@ pipeline {
                          docker rmi -f ${image_Name}
                        """
                   } 
+
+                  docker commit testsvr_4721960k ${image_Name}
                  sh '''#!/bin/bash
 
                  echo "stg3_4721960k:testsvr is backup and updated";
