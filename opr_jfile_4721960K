@@ -35,7 +35,27 @@ pipeline {
           }
           stage('stg3-4721960K') {
           steps {            
-              echo 'stg3-4721960K.'
+             script {
+		  
+		         def imgName = 'testsvr_image'
+                 sh '''#!/bin/bash
+				 
+				 if docker image inspect ${imgName} >/dev/null 2>&1; {
+				    docker rmi -f imgName
+				 }
+				 
+				 docker commit testsvr_4721960k ${imgName}; 
+				 
+                 puppet resource file /tmp/clone ensure=absent force=true;
+                 puppet resource file /tmp/clone ensure=directory;
+	             cd /tmp/clone;
+	             git clone https://github.com/sddo-gcj/app-4721960K_repo.git;
+                 targets=testsvr_4721960k.localdomain;
+                 locate_script='/tmp/clone/app-4721960K_repo/opr_script_4721960K';
+                 bolt script run $locate_script -t $targets -u clientadm -p user123 --no-host-key-check --run-as root;
+                 '''
+                 echo "stg3_4721960k:testsvr is backup and updated"
+			 }
           }
           }
           stage('stg4-4721960K') {
