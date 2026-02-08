@@ -42,11 +42,11 @@ pipeline {
                   echo "${exists}"
                   if (exists == 0) {
                       sh """
-                          echo "${image_Name} is found"
+                          docker rmi -f ${image_Name}
                        """
                   } 
-                   echo "${image_Name} is not found"
-                   
+
+                   docker commit testsvr_4721960k ${image_Name} 
                  sh '''#!/bin/bash
 
                  echo "stg3_4721960k:testsvr is backup and updated";
