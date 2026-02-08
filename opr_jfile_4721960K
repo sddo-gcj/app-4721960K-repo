@@ -7,8 +7,22 @@ pipeline {
           }
           }
           stage('stg2-4721960K') {
-          steps {
-            echo 'stg2-4721960K.'
+             steps {
+		     script {
+                     def url = 'http://localhost:33100'
+                     def resultFile = '/tmp/testsvr-result-file'
+                     def test_success = 'HTTP/1.1 200 OK'
+                     def output
+			   
+                     sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
+ 
+                     output = sh(script: "cat ${resultFile}", returnStdout: true).trim()
+                     
+                     echo resultfile    
+                     echo output
+                     echo test_success
+
+             }
           }
           }
           stage('stg3-4721960K') {
