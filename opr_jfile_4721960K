@@ -47,6 +47,7 @@ pipeline {
 				 docker commit testsvr_4721960k imgName; 
 
                  echo "stg3_4721960k:testsvr is backup and updated"
+                 '''
 			 }
           }
           }
