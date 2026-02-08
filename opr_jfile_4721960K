@@ -36,7 +36,7 @@ pipeline {
           stage('stg3-4721960K') {
           steps {            
              script {
-                 imgName = "testsvr_image";
+                 def imgName = "testsvr_image";
                  echo ${imgName}; 
 
                  sh '''#!/bin/bash
