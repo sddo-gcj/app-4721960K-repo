@@ -36,13 +36,13 @@ pipeline {
           stage('stg3-4721960K') {
           steps {            
              script {
+                 imgName = "testsvr_image";
+                 echo ${imgName}; 
+
                  sh '''#!/bin/bash
 
-                 imgName = "testsvr_image";
-                 echo ${imgName};
-
-
                  echo "stg3_4721960k:testsvr is backup and updated";
+
                  '''
 			 }
           }
