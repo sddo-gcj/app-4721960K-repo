@@ -16,9 +16,6 @@ pipeline {
                      sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
                      def result = readFile(file:resultFile).trim()
-                     
-                     echo "Contents of the resultFile are: ${result}"    
-                     echo "${test_success}"
 
                      if (result == test_success) {
 			            sh """
@@ -31,8 +28,8 @@ pipeline {
 			             currentBuild.result = 'ABORTED'
                          error('Abort')  				  
 			         }
-
-
+                    
+                     input('Proceed to update testsvr server?')
              }
           }
           }
