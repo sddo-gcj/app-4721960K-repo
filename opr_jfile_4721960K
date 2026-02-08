@@ -20,7 +20,7 @@ pipeline {
                      echo "Contents of the resultFile are: ${result}"    
                      echo "${test_success}"
 
-                     if (output == test_success) {
+                     if (output = test_success) {
 			            sh """
 				           echo "stg2_4721960K:testsvr's website is running" 
 				        """
