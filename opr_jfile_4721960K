@@ -39,13 +39,14 @@ pipeline {
                   def image_Name = 'testsvr_image'  
                   def exists = sh(script: "docker image inspect ${image_Name}> /dev/null",returnStatus: true)
 
+                  echo "${exists}"
                   if (exists == 0) {
                       sh """
-                         docker rmi -f ${image_Name}
+                          echo "${image_Name} is found"
                        """
                   } 
-
-                  docker commit testsvr_4721960k ${image_Name}
+                   echo "${image_Name} is not found"
+                   
                  sh '''#!/bin/bash
 
                  echo "stg3_4721960k:testsvr is backup and updated";
