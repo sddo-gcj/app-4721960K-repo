@@ -38,11 +38,9 @@ pipeline {
              script {
                  sh '''#!/bin/bash
 
-                 def imgName = "testsvr_image";
-				 if docker image inspect "${imgName}" >/dev/null 2>&1; then
-				    docker rmi -f "${imgName}";
-				 
-				 docker commit testsvr_4721960k "${imgName}"; 
+                 imgName = "testsvr_image";
+                 echo ${imgName};
+
 
                  echo "stg3_4721960k:testsvr is backup and updated";
                  '''
