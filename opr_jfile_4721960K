@@ -12,15 +12,13 @@ pipeline {
                      def url = 'http://localhost:33100'
                      def resultFile = '/tmp/testsvr-result-file'
                      def test_success = 'HTTP/1.1 200 OK'
-                     def output
-			   
+                    
                      sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
-                     output = sh(script: "cat ${resultFile}", returnStdout: true).trim()
+                     def result = readFile(file:filePath).trim()
                      
-                     echo resultfile    
-                     echo output
-                     echo test_success
+                     echo "Contents of the resultFile are; ${result}"    
+                     echo "${test_success"}
 
              }
           }
