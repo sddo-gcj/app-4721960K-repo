@@ -15,7 +15,7 @@ pipeline {
                     
                      sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
-                     def result = readFile(file:filePath).trim()
+                     def result = readFile(file:resultFile).trim()
                      
                      echo "Contents of the resultFile are; ${result}"    
                      echo "${test_success}"
