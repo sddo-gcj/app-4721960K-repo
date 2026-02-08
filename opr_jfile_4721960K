@@ -9,7 +9,7 @@ pipeline {
           stage('stg2-4721960K') {
              steps {
 		     script {
-                     def url = 'http://localhost:33100'
+                     def url = 'http://localhost:33300'
                      def resultFile = '/tmp/testsvr-result-file'
                      def test_success = 'HTTP/1.1 200 OK'
                     
