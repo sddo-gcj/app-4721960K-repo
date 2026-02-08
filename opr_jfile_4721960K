@@ -36,15 +36,13 @@ pipeline {
           stage('stg3-4721960K') {
           steps {            
              script {
-		  
-		         def imgName = 'testsvr_image'
                  sh '''#!/bin/bash
+
+                 imgName = 'testsvr_image'
+				 if docker image inspect "${imgName}" >/dev/null 2>&1; then
+				    docker rmi -f "${imgName}"
 				 
-				 if docker image inspect ${imgName} >/dev/null 2>&1; {
-				    docker rmi -f ${imgName}
-				 }
-				 
-				 docker commit testsvr_4721960k ${imgName}; 
+				 docker commit testsvr_4721960k "${imgName}"; 
 
                  echo "stg3_4721960k:testsvr is backup and updated"
                  '''
