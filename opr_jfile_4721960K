@@ -37,7 +37,7 @@ pipeline {
           steps {            
              script {
                   def image_Name = 'testsvr_image'  
-                  def exists = sh(script: "docker image inspect ${image_Name}> /dev/null",returnStatus: true)
+                  def exists = sh(script: "docker image inspect ${image_Name}> /dev/null 2>&1",returnStatus: true)
 
                   echo "${exists}"
                   if (exists == 0) {
