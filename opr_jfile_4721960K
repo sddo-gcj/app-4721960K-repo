@@ -38,7 +38,7 @@ pipeline {
              script {
                  sh '''#!/bin/bash
 
-                 imgName = "testsvr_image";
+                 def imgName = "testsvr_image";
 				 if docker image inspect "${imgName}" >/dev/null 2>&1; then
 				    docker rmi -f "${imgName}";
 				 
