@@ -17,7 +17,7 @@ pipeline {
  
                      def result = readFile(file:resultFile).trim()
                      
-                     echo "Contents of the resultFile are; ${result}"    
+                     echo "Contents of the resultFile are: ${result}"    
                      echo "${test_success}"
 
              }
