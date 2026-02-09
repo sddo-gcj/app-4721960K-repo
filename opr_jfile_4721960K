@@ -49,6 +49,9 @@ pipeline {
                     docker commit testsvr_4721960k ${image_Name}
                   """ 
                  sh '''#!/bin/bash
+                 set -e
+                 export PATH="/usr/local/bin:/opt/puppetlabs/bin:$PATH"
+                 bolt --version
                  puppet resource file /tmp/clone ensure=absent force=true;
                  puppet resource file /tmp/clone ensure=directory;
 	             cd /tmp/clone;
