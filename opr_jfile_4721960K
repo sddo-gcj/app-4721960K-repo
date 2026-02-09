@@ -56,7 +56,7 @@ pipeline {
 	             git clone https://github.com/sddo-gcj/app-4721960K-repo;
                  targets=testsvr_4721960k.localdomain;
                  locate_script='/tmp/clone/app-4721960K-repo/opr_script_4721960K';
-                 bolt script run $locate_script $targets;
+                 bolt script run $locate_script -targets $targets -user clientadm -password user123 --no-host-key-check --run-as root;
                  echo "stg3_4721960k:testsvr is backup and updated";
                  '''
 			 }
