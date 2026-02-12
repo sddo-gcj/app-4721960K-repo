@@ -68,7 +68,7 @@ pipeline {
                 
 			   def url = 'http://localhost:33100'
                def resultFile = '/tmp/updated_testsvr-result-file'
-               def test_ok = 'HTTP/1.1 200 OK'
+               def test_ok = 'HTTP/1.1 400 OK'
                
                sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
