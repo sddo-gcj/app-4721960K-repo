@@ -127,7 +127,7 @@ pipeline {
 			   
                sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
-               result = readFile(file:resultFile).trim()
+               def result = readFile(file:resultFile).trim()
 
                if (result == test_ok) {
 			      sh """
