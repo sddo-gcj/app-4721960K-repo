@@ -26,7 +26,7 @@ pipeline {
 				           echo "stg2_4721960K:testsvr's website is down" 
 				        """  
 			             currentBuild.result = 'ABORTED'
-                         error('Aborting pipeline in Stage 2...')			  
+                         error('Pipeline aborted in Stage 2...')			  
 			         }
                     
                      input('Proceed to update testsvr server?')
@@ -83,7 +83,7 @@ pipeline {
 				    echo "stg4_4721960K:testsvr's website is down" 
 				  """  
 			      currentBuild.result = 'ABORTED'
-                  error('Aborting pipeline in Stage 4...')
+                  error('Pipeline aborted in Stage 4...')
 			   }
                input('Proceed to update appsvr server?')
              }
