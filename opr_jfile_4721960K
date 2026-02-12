@@ -11,13 +11,13 @@ pipeline {
 		     script {
                      def url = 'http://localhost:33100'
                      def resultFile = '/tmp/testsvr-result-file'
-                     def test_success = 'HTTP/1.1 200 OK'
+                     def test_ok = 'HTTP/1.1 200 OK'
                     
                      sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
                      def result = readFile(file:resultFile).trim()
 
-                     if (result == test_success) {
+                     if (result == test_ok) {
 			            sh """
 				           echo "stg2_4721960K:testsvr's website is running" 
 				        """
@@ -64,8 +64,30 @@ pipeline {
           }
           stage('stg4-4721960K') {
           steps {
-               echo 'stg4-4721960K.'
-          }
+            script {
+                
+			   def url = 'http://localhost:33100'
+               def resultFile = '/tmp/testsvr-result-file'
+               def test_ok = 'HTTP/1.1 200 OK'
+               
+               sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
+ 
+               def result = readFile(file:resultFile).trim()
+
+               if (output == test_ok) {
+			      sh """
+				    echo "stg4_4721960K:testsvr's website is running" 
+				  """
+			   } else {
+			      sh """
+				    echo "stg4_4721960K:testsvr's website is down" 
+				  """  
+			      currentBuild.result = 'ABORTED'
+                  error('Website is down, System abort!')  				  
+			   }
+               input('Proceed to update appsvr server?')
+             }
+           }
           }
           stage('stg5-4721960K') {
           steps {
