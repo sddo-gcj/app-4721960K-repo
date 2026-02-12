@@ -135,7 +135,7 @@ pipeline {
 			   } else {
 			      script {
                   def userChoice = ""
-				  userChoice = input (message: 'Action', parameters:[choice(name:'Choices',choices'Trigger roll back\nTroubleshooting')])
+				  userChoice = input (message: 'Action', parameters:[choice(name:'Choices',choices:'Trigger roll back\nTroubleshooting')])
 					   
 				  if (userChoice == 'Troubleshooting') {   
     			       echo 'stg6_4721960k:Troubleshooting of Production website starts'
