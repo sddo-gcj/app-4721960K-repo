@@ -134,9 +134,7 @@ pipeline {
 				  """
 			   } else {
 			      script {
-				  v2 = input (
-				       message: 'Action',
-					   parameters:[choice(name:"choices:['Trigger roll back','Troubleshooting'])])
+				  v2 = input (message: 'Action', parameters:[choice(name:"choices:['Trigger roll back','Troubleshooting'])])
 					   
 				  if (v2 == 'Troubleshooting') {   
     			       echo 'stg6_4721960k:Troubleshooting of Production website starts'
