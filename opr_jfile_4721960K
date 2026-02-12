@@ -120,8 +120,32 @@ pipeline {
           }
           stage('stg6-4721960K') {
           steps {
-                 echo 'stg6-4721960K.'
+			   def url = 'http://localhost:33200'
+               def resultFile = '/tmp/appsvr-result-file'
+               def test_ok = 'HTTP/1.1 200 OK'
+			   
+               sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
+ 
+               result = sh(script: "cat ${resultFile}", returnStdout: true).trim()
+
+               if (result == test_ok) {
+			      sh """
+				    echo 'stg6_4721960k:appsvr website is operational'
+				  """
+			   } else {
+			      script {
+				  v2 = input (
+				       message: 'Action',
+					   parameters:[choice(name:"choices:['Trigger roll back','Troubleshooting'])])
+					   
+				  if (v2 == 'Troubleshooting') {   
+    			       echo 'stg6_4721960k:Troubleshooting of Production website starts'
+				   }  else { 
+				       echo 'stg6_4721960k:Production website is rolling back' 
+			       }			  
+			      }
+               }
           }
-          }
+        }
       }
 }
