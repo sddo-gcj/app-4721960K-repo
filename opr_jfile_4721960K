@@ -74,7 +74,7 @@ pipeline {
  
                def result = readFile(file:resultFile).trim()
 
-               if (output == test_ok) {
+               if (result == test_ok) {
 			      sh """
 				    echo "stg4_4721960K:testsvr's website is running after update" 
 				  """
