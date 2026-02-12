@@ -120,7 +120,8 @@ pipeline {
           }
           stage('stg6-4721960K') {
           steps {
-			   def url = 'http://localhost:33200'
+              script { 
+               def url = 'http://localhost:33200'
                def resultFile = '/tmp/appsvr-result-file'
                def test_ok = 'HTTP/1.1 200 OK'
 			   
@@ -133,7 +134,7 @@ pipeline {
 				    echo 'stg6_4721960k:appsvr website is operational'
 				  """
 			   } else {
-			      script {
+
                   def userChoice = ""
 				  userChoice = input (message: 'Action', parameters:[choice(name:'Choices',choices:'Trigger roll back\nTroubleshooting')])
 					   
