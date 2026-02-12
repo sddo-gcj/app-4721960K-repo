@@ -26,7 +26,7 @@ pipeline {
 				           echo "stg2_4721960K:testsvr's website is down" 
 				        """  
 			             currentBuild.result = 'ABORTED'
-                         error('Abort')  				  
+                         return  				  
 			         }
                     
                      input('Proceed to update testsvr server?')
@@ -83,7 +83,7 @@ pipeline {
 				    echo "stg4_4721960K:testsvr's website is down" 
 				  """  
 			      currentBuild.result = 'ABORTED'
-                  error('Website is down, System abort!')  				  
+                  return  				  
 			   }
                input('Proceed to update appsvr server?')
              }
@@ -134,9 +134,10 @@ pipeline {
 				  """
 			   } else {
 			      script {
-				  def v2 = input (message: 'Action', parameters:[choice(name:"choices:['Trigger roll back','Troubleshooting'])])
+                  def userChoice = ""
+				  userChoice = input (message: 'Action', parameters:[choice(name:'Choices':choices'Trigger roll back\nTroubleshooting')])
 					   
-				  if (v2 == 'Troubleshooting') {   
+				  if (userChoice == 'Troubleshooting') {   
     			       echo 'stg6_4721960k:Troubleshooting of Production website starts'
 				   }  else { 
 				       echo 'stg6_4721960k:Production website is rolling back' 
