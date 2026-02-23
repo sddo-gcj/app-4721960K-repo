@@ -123,7 +123,7 @@ pipeline {
               script { 
                def url = 'http://localhost:33200'
                def resultFile = '/tmp/appsvr-result-file'
-               def test_ok = 'HTTP/1.1 404 OK'
+               def test_ok = 'HTTP/1.1 200 OK'
 			   
                sh "curl -i ${url}|head -n 1 > ${resultFile}"  			   
  
